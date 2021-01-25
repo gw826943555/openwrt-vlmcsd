@@ -57,3 +57,7 @@ start_service() {
 			fi
 	fi
 }
+
+service_triggers() {
+	procd_add_config_trigger "config.change" "vlmcsd" /etc/init.d/vlmcsd restart
+}
