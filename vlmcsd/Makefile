@@ -4,18 +4,13 @@ PKG_NAME:=vlmcsd
 PKG_VERSION:=svn1113
 PKG_RELEASE:=1
 
-PKG_MAINTAINER:=fuyumi <280604399@qq.com>
-PKG_LICENSE:=MIT
-PKG_LICENSE_FILES:=LICENSE
+PKG_MAINTAINER:=william <gw826943555@qq.com>
+PKG_LICENSE:=WTFPL
 
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL:=https://github.com/Wind4/vlmcsd.git
-PKG_MIRROR_HASH:=9510cf4e48e809b09fea60f29e41d3a0fb0f58257644dc60929ad503e8a156af
-PKG_SOURCE_VERSION:=e599080486478e219cd065e141d6de050a450c27
+PKG_SOURCE:=vlmcsd-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/Wind4/vlmcsd/tar.gz/$(PKG_VERSION)?
+PKG_HASH:=9510cf4e48e809b09fea60f29e41d3a0fb0f58257644dc60929ad503e8a156af
 
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)
-PKG_SOURCE:=$(PKG_SOURCE_SUBDIR)-$(PKG_VERSION).tar.gz
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_SOURCE_SUBDIR)
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -38,11 +33,10 @@ MAKE_FLAGS += \
 define Package/vlmcsd/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/vlmcsd $(1)/usr/bin/vlmcsd
-	#$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/vlmcs $(1)/usr/bin/vlmcs
 	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_BIN) ./files/vlmcsd.ini $(1)/etc/vlmcsd.ini
-	#$(INSTALL_DIR) $(1)/etc/init.d
-	#$(INSTALL_BIN) ./files/vlmcsd.init $(1)/etc/init.d/vlmcsd
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/vlmcsd.init $(1)/etc/init.d/vlmcsd
 endef
 
 $(eval $(call BuildPackage,vlmcsd))
