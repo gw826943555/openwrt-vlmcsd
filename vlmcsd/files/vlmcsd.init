@@ -1,11 +1,7 @@
 #!/bin/sh /etc/rc.common
 # Copyright (c) 2011-2015 OpenWrt.org
 
-USE_PROCD=1
-START=99
-
-APPBINARY=/usr/bin/vlmcsd
-CONFIGFILE=/etc/vlmcsd.ini
+START=90
 
 get_config() {
 	config_get_bool enabled $1 enabled 0
@@ -29,39 +25,31 @@ add_vlmcs_entry() {
 	exit 0
 }
 
-start_service() {
+start() {
 	config_load vlmcsd
 	config_foreach get_config vlmcsd
 	[ $enabled -eq 0 ] && exit 0
-
-	procd_open_instance
-	procd_set_param command $APPBINARY -i $CONFIGFILE -L 0.0.0.0:1688 -l syslog
-	procd_set_param file $CONFIGFILE
-	procd_set_param respawn
-	procd_close_instance
+	/usr/bin/vlmcsd -i /etc/vlmcsd.ini -L 0.0.0.0:1688 -l syslog
 	echo "KMS Server has started."
 
 	if [ $autoactivate -eq 1 ]; then
 		local HOSTNAME=`uci get system.@system[0].hostname`
 
 		local index=$(uci -q show dhcp |grep "].srv='_vlmcs._tcp'") \
-				|| add_vlmcs_entry $HOSTNAME
+			|| add_vlmcs_entry $HOSTNAME
 		index=${index#*[}
 		index=${index%]*}
 
 		local host_name=$(uci -q get dhcp.@srvhost[$index].target)
 
 		if [ "$HOSTNAME" != "$host_name" ]; then
-				uci delete dhcp.@srvhost[$index]
-				add_vlmcs_entry $HOSTNAME
+			uci delete dhcp.@srvhost[$index]
+			add_vlmcs_entry $HOSTNAME
 		fi
 	fi
 }
 
-stop_service() {
-	return 0
-}
-
-service_triggers() {
-	procd_add_config_trigger vlmcsd
+stop() {
+	killall -q -9 vlmcsd
+	echo "KMS Server has stopped."
 }
