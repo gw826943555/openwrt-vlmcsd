@@ -6,11 +6,8 @@
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=LuCI page for KMS
+LUCI_TITLE:=LuCI interface for vlmcsd
 LUCI_DEPENDS:=+vlmcsd
-LUCI_PKGARCH:=all
-PKG_VERSION:=1.0
-PKG_RELEASE:=5
 
 include $(TOPDIR)/feeds/luci/luci.mk
 

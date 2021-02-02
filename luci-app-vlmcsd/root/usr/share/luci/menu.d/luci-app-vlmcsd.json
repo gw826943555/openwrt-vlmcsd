@@ -1,0 +1,14 @@
+{
+	"admin/services/vlmcsd": {
+		"title": "VLMCSD",
+		"order": 50,
+		"action": {
+			"type": "view",
+			"path": "vlmcsd"
+		},
+		"depends": {
+			"acl": [ "luci-app-vlmcsd" ],
+			"uci": { "vlmcsd": true }
+		}
+	}
+}

@@ -5,10 +5,14 @@
 			"cgi-io": [ "exec" ],
 			"uci": [ "dhcp", "vlmcsd" ],
 			"file": {
+				"/etc/vlmcsd.ini": [ "read" ],
 				"/etc/init.d/vlmcsd *": ["exec" ]
 			}
 		},
 		"write": {
+			"file": {
+				"/etc/vlmcsd.ini": [ "write" ]
+			},
 			"uci": [ "dhcp", "vlmcsd" ]
 		}
 	}
