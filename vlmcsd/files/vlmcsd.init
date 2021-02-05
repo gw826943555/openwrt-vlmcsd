@@ -93,7 +93,7 @@ start_service() {
 	
 	[ -n "$interface" ] && parse_iface $interface || listen_all
 
-	procd_open_instance
+	procd_open_instance "vlmcsd"
 	procd_set_param command $PROG -D -i "/etc/vlmcsd.ini"
 	[ -n "$ip4" ] && procd_append_param command -L "${ip4}:${port}"
 	[ -n "$ip6" ] && procd_append_param command -L "${ip6}:${port}"
