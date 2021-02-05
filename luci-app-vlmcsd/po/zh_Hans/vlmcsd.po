@@ -1,19 +1,23 @@
 msgid ""
-msgstr "Content-Type: text/plain; charset=UTF-8"
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:16
+#: htdocs/luci-static/resources/view/vlmcsd.js:66
+msgid "Collecting data ..."
+msgstr "收集数据中 ..."
+
+#: htdocs/luci-static/resources/view/vlmcsd.js:75
 msgid "Edit Template"
 msgstr "编辑模板"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:41
+#: htdocs/luci-static/resources/view/vlmcsd.js:100
 msgid "Edit the template that is used for generating the vlmcsd configuration."
 msgstr "编辑用于生成 vlmcsd 配置的模板。"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:18
+#: htdocs/luci-static/resources/view/vlmcsd.js:77
 msgid "Enable"
 msgstr "启用"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:15
+#: htdocs/luci-static/resources/view/vlmcsd.js:74
 msgid "General Settings"
 msgstr "常规设置"
 
@@ -21,19 +25,19 @@ msgstr "常规设置"
 msgid "Grant UCI access for luci-app-vlmcsd"
 msgstr "为 luci-app-vlmcsd 授予 UCI 的访问权限"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:26
+#: htdocs/luci-static/resources/view/vlmcsd.js:85
 msgid "IPv4 and IPv6"
 msgstr "IPv4 和 IPv6"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:27
+#: htdocs/luci-static/resources/view/vlmcsd.js:86
 msgid "IPv4 only"
 msgstr "仅 IPv4"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:28
+#: htdocs/luci-static/resources/view/vlmcsd.js:87
 msgid "IPv6 only"
 msgstr "仅 IPv6"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:21
+#: htdocs/luci-static/resources/view/vlmcsd.js:80
 msgid "Interface"
 msgstr "接口"
 
@@ -41,38 +45,47 @@ msgstr "接口"
 msgid "KMS Server"
 msgstr "KMS服务器"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:22
+#: htdocs/luci-static/resources/view/vlmcsd.js:81
 msgid "Listen only on the given interface or, if unspecified, on all"
 msgstr "仅监听指定的接口，未指定则监听全部"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:36
+#: htdocs/luci-static/resources/view/vlmcsd.js:95
 msgid "Log to syslog"
 msgstr "记录日志到 syslog"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:30
+#: htdocs/luci-static/resources/view/vlmcsd.js:89
 msgid "Port"
 msgstr "端口"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:24
+#: htdocs/luci-static/resources/view/vlmcsd.js:83
 msgid "Restrict to address family"
 msgstr "限制地址"
 
 #: htdocs/luci-static/resources/view/vlmcsd.js:42
+msgid "The KMS service is not running."
+msgstr "KMS 服务未运行"
+
+#: htdocs/luci-static/resources/view/vlmcsd.js:40
+msgid "The KMS service is running."
+msgstr "KMS 服务运行中"
+
+#: htdocs/luci-static/resources/view/vlmcsd.js:101
 msgid ""
 "This is the content of the file '/etc/vlmcsd.ini' from which your vlmcsd "
 "configuration will be generated. Values enclosed by pipe symbols ('|') "
 "should not be changed. They get their values from the 'General Settings' tab."
-msgstr "这是配置文件“/etc/vlmcsd.ini”的内容，用于配置 vlmcsd 参数。由管道"
-"符（“|”）包围的值不应更改。它们将从“常规设置”标签中获取其值。"
+msgstr ""
+"这是配置文件“/etc/vlmcsd.ini”的内容，用于配置 vlmcsd 参数。由管道符（“|”）包"
+"围的值不应更改。它们将从“常规设置”标签中获取其值。"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:10
+#: htdocs/luci-static/resources/view/vlmcsd.js:51
 msgid "Vlmcsd"
 msgstr "Vlmcsd"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:10
+#: htdocs/luci-static/resources/view/vlmcsd.js:51
 msgid "Vlmcsd is a KMS emulator to activate your Windows or Office."
 msgstr "Vlmcsd是一个用于激活Windows或Office的KMS模拟器。"
 
-#: htdocs/luci-static/resources/view/vlmcsd.js:37
+#: htdocs/luci-static/resources/view/vlmcsd.js:96
 msgid "Writes log messages to syslog."
 msgstr "把日志写入系统日志。"
