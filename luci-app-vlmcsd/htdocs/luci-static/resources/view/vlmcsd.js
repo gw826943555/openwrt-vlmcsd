@@ -7,66 +7,55 @@
 'require tools.widgets as widgets';
 'require view';
 
-var conf = 'vlmcsd';
-var callServiceList = rpc.declare({
-		object: 'service',
-		method: 'list',
-		params: ['name'],
-		expect: { '': {} }
+var callServiceList, CBIVlmcsdStatus;
+
+callServiceList = rpc.declare({
+	object: 'service',
+	method: 'list',
+	params: [ 'name' ],
+	expect: { '': {} }
 });
 
-function getPidOfVlmcsd() {
-		return L.resolveDefault(callServiceList(conf), {})
-				.then(function (res) {
-						var isrunning = false;
-						try {
-								isrunning = res[conf]['instances']['vlmcsd']['running'];
-						} catch (e) { }
-						return isrunning;
-				});
-}
+CBIVlmcsdStatus = form.DummyValue.extend({
+	renderWidget: function() {
+		var node = E('div', {}, E('p', {}, E('em', {}, _('Collecting data...'))));
+		poll.add(function() {
+			Promise.all([
+				callServiceList('vlmcsd', {}).then(function(res) {
+					var stat = "";
+					var isrunning = false;
 
-function vlmcsdServiceStatus() {
-		return Promise.all([
-				getPidOfVlmcsd()
-		]);
-}
+					try {
+						isrunning = res['vlmcsd']['instances']['vlmcsd']['running'];
+					} catch (e) { };
 
-function vlmcsdRenderStatus(res) {
-		var renderHTML = "";
-		var isRunning = res[0];
+					if (isrunning) {
+						stat = "<span style=\"color:green;font-weight:bold\">" + _("The KMS service is running.") + "</span>";
+					} else {
+						stat = "<span style=\"color:red;font-weight:bold\">" + _("The KMS service is not running.") + "</span>";
+					};
 
-		if (isRunning) {
-				renderHTML += "<span style=\"color:green;font-weight:bold\">" + _("The KMS service is running.") + "</span>";
-		} else {
-				renderHTML += "<span style=\"color:red;font-weight:bold\">" + _("The KMS service is not running.") + "</span>";
-		}
-
-		return renderHTML;
-}
+					return E('p', {}, E('em', {}, stat));
+				})
+			]).then(function(res) {
+				res = res.filter(function(r) { return r ? 1 : 0 });
+				dom.content(node, res);
+			});
+		});
+		return node;
+	}
+});
 
 return view.extend({
 	render: function() {
 		var m, s, o;
 		m = new form.Map('vlmcsd', _('Vlmcsd'), _('Vlmcsd is a KMS emulator to activate your Windows or Office.'));
 
-		s = m.section(form.NamedSection, '_status');
+		s = m.section(form.TypedSection);
 		s.anonymous = true;
-		s.render = function (section_id) {
-			L.Poll.add(function () {
-				return L.resolveDefault(vlmcsdServiceStatus()).then(function (res) {
-					var view = document.getElementById("service_status");
-					view.innerHTML = vlmcsdRenderStatus(res);
-				});
-			});
+		s.cfgsections = function() { return [ 'status' ] };
 
-			return E('div', { class: 'cbi-map' },
-				E('div', { class: 'cbi-section' }, [
-					E('div', { id: 'service_status' },
-						_('Collecting data ...'))
-				])
-			);
-		}
+		o = s.option(CBIVlmcsdStatus);
 
 		s = m.section(form.NamedSection, 'config');
 		s.addremove = false;
