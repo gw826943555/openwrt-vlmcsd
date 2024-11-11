@@ -1,14 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=vlmcsd
-PKG_VERSION:=svn1113
+PKG_VERSION:=1.0.1113
 PKG_RELEASE:=1
 
 PKG_MAINTAINER:=william <gw826943555@qq.com>
 PKG_LICENSE:=WTFPL
 
-PKG_SOURCE:=vlmcsd-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://codeload.github.com/Wind4/vlmcsd/tar.gz/$(PKG_VERSION)?
+PKG_SOURCE:=vlmcsd-svn1113.tar.gz
+PKG_SOURCE_URL:=https://codeload.github.com/Wind4/vlmcsd/tar.gz/svn1113?
 PKG_HASH:=62f55c48f5de1249c2348ab6b96dabbe7e38899230954b0c8774efb01d9c42cc
 
 PKG_BUILD_PARALLEL:=1
