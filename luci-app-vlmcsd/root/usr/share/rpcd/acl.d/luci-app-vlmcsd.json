@@ -1,22 +1,20 @@
 {
 	"luci-app-vlmcsd": {
-			"description": "Grant UCI access for luci-app-vlmcsd",
-			"read": {
-					"cgi-io": [ "exec" ],
-					"ubus": {
-							"service": [ "list" ]
-					},
-					"uci": [ "dhcp", "vlmcsd" ],
-					"file": {
-							"/etc/vlmcsd.ini": [ "read" ],
-							"/etc/init.d/vlmcsd *": ["exec" ]
-					}
+		"description": "Grant UCI access for luci-app-vlmcsd",
+		"read": {
+			"file": {
+				"/etc/vlmcsd.ini": [ "read" ]
 			},
-			"write": {
-					"file": {
-							"/etc/vlmcsd.ini": [ "write" ]
-					},
-					"uci": [ "dhcp", "vlmcsd" ]
-			}
+			"ubus": {
+				"service": [ "list" ]
+			},
+			"uci": [ "vlmcsd" ]
+		},
+		"write": {
+			"file": {
+				"/etc/vlmcsd.ini": [ "write" ]
+			},
+			"uci": [ "vlmcsd" ]
+		}
 	}
 }

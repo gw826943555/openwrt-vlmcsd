@@ -1,101 +1,65 @@
 'use strict';
-'require dom';
 'require form';
-'require fs';
 'require poll';
 'require rpc';
-'require tools.widgets as widgets';
 'require view';
+'require fs';
 
-var callServiceList, CBIVlmcsdStatus;
-
-callServiceList = rpc.declare({
+const callServiceList = rpc.declare({
 	object: 'service',
 	method: 'list',
-	params: [ 'name' ],
+	params: ['name'],
 	expect: { '': {} }
 });
 
-CBIVlmcsdStatus = form.DummyValue.extend({
-	renderWidget: function() {
-		var node = E('div', {}, E('p', {}, E('em', {}, _('Collecting data...'))));
-		poll.add(function() {
-			Promise.all([
-				callServiceList('vlmcsd', {}).then(function(res) {
-					var stat = "";
-					var isrunning = false;
+function getServiceStatus() {
+	return L.resolveDefault(callServiceList('vlmcsd'), {}).then(res =>
+		res?.['vlmcsd']?.['instances']?.['vlmcsd']?.['running']
+	);
+}
 
-					try {
-						isrunning = res['vlmcsd']['instances']['vlmcsd']['running'];
-					} catch (e) { };
-
-					if (isrunning) {
-						stat = "<span style=\"color:green;font-weight:bold\">" + _("The KMS service is running.") + "</span>";
-					} else {
-						stat = "<span style=\"color:red;font-weight:bold\">" + _("The KMS service is not running.") + "</span>";
-					};
-
-					return E('p', {}, E('em', {}, stat));
-				})
-			]).then(function(res) {
-				res = res.filter(function(r) { return r ? 1 : 0 });
-				dom.content(node, res);
-			});
-		});
-		return node;
-	}
-});
+function renderStatus(status) {
+	const color = status ? 'green' : 'red';
+	const service = _('Vlmcsd KMS Server');
+	const running = status ? _('RUNNING') : _('NOT RUNNING');
+	return `<em><span style="color:${color}"><strong>${service} ${running}</strong></span></em>`;
+}
 
 return view.extend({
-	render: function() {
-		var m, s, o;
-		m = new form.Map('vlmcsd', _('Vlmcsd'), _('Vlmcsd is a KMS emulator to activate your Windows or Office.'));
+	render() {
+		const m = new form.Map('vlmcsd', _('Vlmcsd KMS Server'));
 
-		s = m.section(form.TypedSection);
+		let s = m.section(form.TypedSection);
 		s.anonymous = true;
-		s.cfgsections = function() { return [ 'status' ] };
+		s.render = function () {
+			poll.add(function () {
+				return L.resolveDefault(getServiceStatus()).then(function (res) {
+					const stats = renderStatus(res);
+					const view = document.getElementById('vlmcsd_status');
+					view.innerHTML = stats;
+				});
+			});
 
-		o = s.option(CBIVlmcsdStatus);
+			return E('div', { class: 'cbi-section', id: 'status_bar' }, [
+				E('p', { id: 'vlmcsd_status' }, _('Collecting data…'))
+			]);
+		};
 
-		s = m.section(form.NamedSection, 'config');
-		s.addremove = false;
-		
-		s.tab('general',  _('General Settings'));
-		s.tab('template', _('Edit Template'));
+		s = m.section(form.NamedSection, 'config', 'vlmcsd');
+		s.tab('general', _('General Settings'));
+		s.tab('config_file', _('Configuration File'), _('Edit the content of the /etc/vlmcsd.ini file.'));
 
-		o = s.taboption('general', form.Flag, 'enabled', _('Enable'));
-		o.rmempty = false;
-		
-		s.taboption('general', widgets.NetworkSelect, 'interface', _('Interface'),
-			_('Listen only on the given interface or, if unspecified, on all'));
+		s.taboption('general', form.Flag, 'enabled', _('Enable Vlmcsd KMS Server'));
+		s.taboption('general', form.Flag, 'auto_activate', _('Allow automatic activation'));
+		s.taboption('general', form.Flag, 'internet_access', _('Allow connection from Internet'));
 
-		o = s.taboption('general', form.ListValue, 'family', _('Restrict to address family'));
-		o.rmempty = true;
-		o.value('', _('IPv4 and IPv6'));
-		o.value('ipv4', _('IPv4 only'));
-		o.value('ipv6', _('IPv6 only'));
-
-		o = s.taboption('general', form.Value, 'port', _('Port'));
-		o.rmempty = true;
-		o.default = '1688';
-		o.datatype = 'port';
-
-		o = s.taboption("general", form.Flag, "use_syslog",
-			_("Log to syslog"),
-			_("Writes log messages to syslog."));
-		o.rmempty = false;
-
-		o = s.taboption('template', form.TextValue, '_tmpl',
-			_('Edit the template that is used for generating the vlmcsd configuration.'),
-			_("This is the content of the file '/etc/vlmcsd.ini' from which your vlmcsd configuration will be generated. \
-			Values enclosed by pipe symbols ('|') should not be changed. They get their values from the 'General Settings' tab."));
+		const o = s.taboption('config_file', form.TextValue, '_tmpl',
+			null,
+			_("This is the content of the file '/etc/vlmcsd.ini', you can edit it here, usually no modification is needed."));
 		o.rows = 20;
-		o.cfgvalue = function(section_id) {
-			return fs.trimmed('/etc/vlmcsd.ini');
-		};
-		o.write = function(section_id, formvalue) {
-			return fs.write('/etc/vlmcsd.ini', formvalue.trim().replace(/\r\n/g, '\n') + '\n');
-		};
+		o.monospace = true;
+		o.load = () => fs.trimmed('/etc/vlmcsd.ini');
+		o.write = (_, value) => fs.write('/etc/vlmcsd.ini', value.trim().replace(/\r\n/g, '\n') + '\n');
 
 		return m.render();
 	}

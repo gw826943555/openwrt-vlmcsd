@@ -1,89 +1,54 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:21
-msgid "Collecting data..."
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:53
+msgid "Allow automatic activation"
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:64
-msgid "Edit Template"
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:54
+msgid "Allow connection from Internet"
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:89
-msgid "Edit the template that is used for generating the vlmcsd configuration."
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:44
+msgid "Collecting data…"
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:66
-msgid "Enable"
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:50
+msgid "Configuration File"
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:63
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:50
+msgid "Edit the content of the /etc/vlmcsd.ini file."
+msgstr ""
+
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:52
+msgid "Enable Vlmcsd KMS Server"
+msgstr ""
+
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:49
 msgid "General Settings"
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/root/usr/share/rpcd/acl.d/luci-app-vlmcsd.json:3
+#: applications/luci-app-vlmcsd/root/usr/share/rpcd/acl.d/luci-app-vlmcsd.json:3
 msgid "Grant UCI access for luci-app-vlmcsd"
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:74
-msgid "IPv4 and IPv6"
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:24
+msgid "NOT RUNNING"
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:75
-msgid "IPv4 only"
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:24
+msgid "RUNNING"
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:76
-msgid "IPv6 only"
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:69
-msgid "Interface"
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/root/usr/share/luci/menu.d/luci-app-vlmcsd.json:3
-msgid "KMS Server"
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:70
-msgid "Listen only on the given interface or, if unspecified, on all"
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:84
-msgid "Log to syslog"
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:78
-msgid "Port"
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:72
-msgid "Restrict to address family"
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:35
-msgid "The KMS service is not running."
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:33
-msgid "The KMS service is running."
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:90
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:58
 msgid ""
-"This is the content of the file '/etc/vlmcsd.ini' from which your vlmcsd "
-"configuration will be generated. Values enclosed by pipe symbols ('|') "
-"should not be changed. They get their values from the 'General Settings' tab."
+"This is the content of the file '/etc/vlmcsd.ini', you can edit it here, "
+"usually no modification is needed."
 msgstr ""
 
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:52
-msgid "Vlmcsd"
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:52
-msgid "Vlmcsd is a KMS emulator to activate your Windows or Office."
-msgstr ""
-
-#: openwrt-vlmcsd/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:85
-msgid "Writes log messages to syslog."
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:23
+#: applications/luci-app-vlmcsd/htdocs/luci-static/resources/view/vlmcsd.js:30
+#: applications/luci-app-vlmcsd/root/usr/share/luci/menu.d/luci-app-vlmcsd.json:3
+msgid "Vlmcsd KMS Server"
 msgstr ""
